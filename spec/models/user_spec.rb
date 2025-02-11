@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
       it 'emailがすでに登録されている場合、登録ができない' do
-        first_user = FactoryBot.create(:user, email: 'test@test.co.jp')
+        FactoryBot.create(:user, email: 'test@test.co.jp')
         second_user = FactoryBot.build(:user, email: 'test@test.co.jp')
         second_user.valid?
         expect(second_user.errors.full_messages).to include('Email has already been taken')
