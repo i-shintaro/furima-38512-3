@@ -10,7 +10,7 @@ const price = () => {
     addTaxDom.innerHTML = `${taxPrice}`;
     // 販売利益
     const profit = document.getElementById("profit");
-    const profitValue = inputValue - taxPrice;
+    const profitValue = Math.floor(inputValue - taxPrice);
     profit.innerHTML = `${profitValue}`;
   });
 };
