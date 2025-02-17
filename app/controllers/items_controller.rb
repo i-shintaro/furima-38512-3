@@ -1,8 +1,10 @@
 class ItemsController < ApplicationController
   # deviseのヘルパーメソッド。ログインしていなければ、ログイン画面へ遷移させる。
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :move_to_index, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  # すでに保存されたデータを取り出す記述
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  # ログインしているユーザーと@itemのユーザーの一致確認, 異なる場合はトップページへ遷移させる
+  before_action :move_to_index, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -36,6 +38,11 @@ class ItemsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to root_path
   end
 
   private
